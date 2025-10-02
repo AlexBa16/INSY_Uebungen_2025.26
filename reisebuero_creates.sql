@@ -26,7 +26,7 @@ CREATE TABLE Angestellte
     PRIMARY KEY (PK_Angestellte_ID),
     FOREIGN KEY (FK_Land_ID) REFERENCES Land (PK_Land_ID) ON DELETE RESTRICT,
     FOREIGN KEY (FK_Vorgesetzte_ID) REFERENCES Angestellte (PK_Angestellte_ID),
-    CHECK (PLZ REGEXP '^[0-9]{4}$'),
+    CHECK (PLZ REGEXP '^[0-9]{4,5}$'),
     CHECK (Gehalt > 0),
     CHECK (Gewinnbeteiligung >= 0 AND Gewinnbeteiligung <= 1)
 
@@ -79,7 +79,7 @@ CREATE TABLE Filiale
     FK_Land_ID    INT                NOT NULL,
     PRIMARY KEY (PK_Filiale_ID),
     FOREIGN KEY (FK_Land_ID) REFERENCES Land (PK_Land_ID) ON DELETE RESTRICT,
-    CHECK (PLZ REGEXP '^[0-9]{4}$')
+    CHECK (PLZ REGEXP '^[0-9]{4,5}$')
 );
 
 CREATE TABLE Angestellte_Filiale
@@ -156,7 +156,7 @@ CREATE TABLE Kunde
     FOREIGN KEY (FK_Land_ID) REFERENCES Land (PK_Land_ID) ON DELETE RESTRICT,
     FOREIGN KEY (FK_Staatsangehoerigkeit_ID) REFERENCES Land (PK_Land_ID) ON DELETE RESTRICT,
     FOREIGN KEY (FK_Reisedokumentart_ID) REFERENCES Reisedokumentart (PK_Reisedokumentart_ID) ON DELETE RESTRICT,
-    CHECK (PLZ REGEXP '^[0-9]{4}$')
+    CHECK (PLZ REGEXP '^[0-9]{4,5}$')
 );
 
 CREATE TABLE KundeTelefon
