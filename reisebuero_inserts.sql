@@ -740,189 +740,129 @@ INSERT INTO Gehalt (PK_von, bis, Gehalt, PK_FK_Angestellte_ID)
 VALUES ('2014-01-01', '2015-01-01', 2347.14, 3);
 INSERT INTO Gehalt (PK_von, bis, Gehalt, PK_FK_Angestellte_ID)
 VALUES ('2014-01-01', '2015-01-01', 2169.74, 4);
--- Angestellte_Filiale (40 Einträge, Historie);
+-- Angestellte_Filiale (mit optionalem "bis" und ohne Überschneidungen)
 INSERT INTO Angestellte_Filiale (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
 VALUES (1, 5, '2023-09-21', '2024-09-26');
-INSERT INTO Angestellte_Filiale (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
-VALUES (1, 4, '2024-09-27', '2026-03-08');
+INSERT INTO Angestellte_Filiale (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von)
+VALUES (1, 4, '2024-09-27');
+
 INSERT INTO Angestellte_Filiale (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
 VALUES (2, 9, '2021-01-25', '2021-10-29');
-INSERT INTO Angestellte_Filiale (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
-VALUES (2, 2, '2021-10-30', '2023-01-09');
+INSERT INTO Angestellte_Filiale (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von)
+VALUES (2, 2, '2021-10-30');
+
 INSERT INTO Angestellte_Filiale (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
 VALUES (3, 7, '2015-06-14', '2016-04-18');
-INSERT INTO Angestellte_Filiale (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
-VALUES (3, 3, '2016-04-19', '2017-01-09');
+INSERT INTO Angestellte_Filiale (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von)
+VALUES (3, 3, '2016-04-19');
+
 INSERT INTO Angestellte_Filiale (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
 VALUES (4, 7, '2015-05-24', '2016-09-12');
 INSERT INTO Angestellte_Filiale (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
 VALUES (4, 10, '2016-09-13', '2018-07-22');
+INSERT INTO Angestellte_Filiale (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von)
+VALUES (4, 10, '2018-07-23');
+
 INSERT INTO Angestellte_Filiale (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
 VALUES (5, 7, '2018-09-24', '2019-11-13');
-INSERT INTO Angestellte_Filiale (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
-VALUES (5, 1, '2019-11-14', '2021-07-04');
+INSERT INTO Angestellte_Filiale (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von)
+VALUES (5, 1, '2019-11-14');
+
 INSERT INTO Angestellte_Filiale (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
 VALUES (6, 10, '2016-07-12', '2018-02-23');
-INSERT INTO Angestellte_Filiale (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
-VALUES (6, 1, '2018-02-24', '2020-04-23');
+INSERT INTO Angestellte_Filiale (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von)
+VALUES (6, 1, '2018-02-24');
+
 INSERT INTO Angestellte_Filiale (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
 VALUES (7, 7, '2017-12-12', '2018-12-27');
-INSERT INTO Angestellte_Filiale (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
-VALUES (7, 8, '2018-12-28', '2020-05-16');
+INSERT INTO Angestellte_Filiale (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von)
+VALUES (7, 8, '2018-12-28');
+
 INSERT INTO Angestellte_Filiale (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
 VALUES (8, 7, '2021-09-09', '2023-04-14');
-INSERT INTO Angestellte_Filiale (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
-VALUES (8, 10, '2023-04-15', '2025-05-13');
+INSERT INTO Angestellte_Filiale (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von)
+VALUES (8, 10, '2023-04-15');
+
 INSERT INTO Angestellte_Filiale (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
 VALUES (9, 10, '2015-09-11', '2016-07-19');
-INSERT INTO Angestellte_Filiale (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
-VALUES (9, 4, '2016-07-20', '2017-11-11');
+INSERT INTO Angestellte_Filiale (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von)
+VALUES (9, 4, '2016-07-20');
+
 INSERT INTO Angestellte_Filiale (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
 VALUES (10, 7, '2021-08-29', '2022-10-02');
-INSERT INTO Angestellte_Filiale (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
-VALUES (10, 8, '2022-10-03', '2024-03-30');
+INSERT INTO Angestellte_Filiale (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von)
+VALUES (10, 8, '2022-10-03');
+
 INSERT INTO Angestellte_Filiale (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
 VALUES (11, 7, '2021-05-08', '2022-07-21');
-INSERT INTO Angestellte_Filiale (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
-VALUES (11, 3, '2022-07-22', '2023-06-17');
+INSERT INTO Angestellte_Filiale (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von)
+VALUES (11, 3, '2022-07-22');
+
 INSERT INTO Angestellte_Filiale (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
 VALUES (12, 10, '2019-03-09', '2020-04-13');
-INSERT INTO Angestellte_Filiale (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
-VALUES (12, 9, '2020-04-14', '2022-05-31');
+INSERT INTO Angestellte_Filiale (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von)
+VALUES (12, 9, '2020-04-14');
+
 INSERT INTO Angestellte_Filiale (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
 VALUES (13, 1, '2015-07-18', '2016-09-09');
-INSERT INTO Angestellte_Filiale (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
-VALUES (13, 2, '2016-09-10', '2017-08-14');
+INSERT INTO Angestellte_Filiale (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von)
+VALUES (13, 2, '2016-09-10');
+
 INSERT INTO Angestellte_Filiale (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
 VALUES (14, 8, '2023-08-06', '2024-07-04');
-INSERT INTO Angestellte_Filiale (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
-VALUES (14, 3, '2024-07-05', '2026-02-13');
+INSERT INTO Angestellte_Filiale (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von)
+VALUES (14, 3, '2024-07-05');
+
 INSERT INTO Angestellte_Filiale (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
 VALUES (15, 6, '2020-11-08', '2021-11-10');
-INSERT INTO Angestellte_Filiale (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
-VALUES (15, 4, '2021-11-11', '2023-05-10');
+INSERT INTO Angestellte_Filiale (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von)
+VALUES (15, 4, '2021-11-11');
+
 INSERT INTO Angestellte_Filiale (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
 VALUES (16, 7, '2019-12-22', '2021-02-09');
-INSERT INTO Angestellte_Filiale (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
-VALUES (16, 5, '2021-02-10', '2022-05-14');
+INSERT INTO Angestellte_Filiale (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von)
+VALUES (16, 5, '2021-02-10');
+
 INSERT INTO Angestellte_Filiale (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
 VALUES (17, 2, '2020-06-13', '2022-01-17');
-INSERT INTO Angestellte_Filiale (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
-VALUES (17, 8, '2022-01-18', '2024-02-09');
+INSERT INTO Angestellte_Filiale (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von)
+VALUES (17, 8, '2022-01-18');
+
 INSERT INTO Angestellte_Filiale (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
 VALUES (18, 1, '2019-12-06', '2021-05-21');
-INSERT INTO Angestellte_Filiale (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
-VALUES (18, 6, '2021-05-22', '2022-02-16');
+INSERT INTO Angestellte_Filiale (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von)
+VALUES (18, 6, '2021-05-22');
+
 INSERT INTO Angestellte_Filiale (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
 VALUES (19, 1, '2019-06-05', '2020-04-26');
-INSERT INTO Angestellte_Filiale (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
-VALUES (19, 10, '2020-04-27', '2021-06-05');
+INSERT INTO Angestellte_Filiale (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von)
+VALUES (19, 10, '2020-04-27');
+
 INSERT INTO Angestellte_Filiale (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
 VALUES (20, 1, '2021-07-25', '2022-04-15');
-INSERT INTO Angestellte_Filiale (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
-VALUES (20, 3, '2022-04-16', '2024-02-29');
--- Filialleitung (40 Einträge, Historie);
-INSERT INTO Filialleitung (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
-VALUES (4, 10, '2018-04-15', '2018-09-05');
-INSERT INTO Filialleitung (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
-VALUES (4, 5, '2018-03-19', '2019-03-10');
-INSERT INTO Filialleitung (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
-VALUES (4, 1, '2020-07-01', '2021-06-20');
-INSERT INTO Filialleitung (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
-VALUES (4, 7, '2021-06-13', '2021-11-21');
-INSERT INTO Filialleitung (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
-VALUES (4, 2, '2019-09-22', '2020-01-12');
-INSERT INTO Filialleitung (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
-VALUES (19, 5, '2018-05-11', '2019-04-25');
-INSERT INTO Filialleitung (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
-VALUES (19, 1, '2020-11-23', '2021-10-21');
-INSERT INTO Filialleitung (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
-VALUES (19, 7, '2021-02-26', '2021-06-01');
-INSERT INTO Filialleitung (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
-VALUES (19, 9, '2020-10-29', '2021-01-03');
-INSERT INTO Filialleitung (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
-VALUES (19, 7, '2022-07-01', '2022-10-23');
-INSERT INTO Filialleitung (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
-VALUES (7, 7, '2021-01-23', '2021-11-14');
-INSERT INTO Filialleitung (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
-VALUES (7, 3, '2021-11-19', '2022-04-18');
-INSERT INTO Filialleitung (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
-VALUES (7, 9, '2020-01-12', '2020-12-12');
-INSERT INTO Filialleitung (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
-VALUES (7, 8, '2022-03-20', '2022-12-28');
-INSERT INTO Filialleitung (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
-VALUES (7, 10, '2020-01-05', '2020-08-17');
-INSERT INTO Filialleitung (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
-VALUES (15, 4, '2017-12-21', '2018-07-11');
-INSERT INTO Filialleitung (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
-VALUES (15, 8, '2019-09-26', '2020-07-19');
-INSERT INTO Filialleitung (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
-VALUES (15, 10, '2021-04-02', '2021-11-20');
-INSERT INTO Filialleitung (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
-VALUES (15, 1, '2022-07-18', '2023-03-01');
-INSERT INTO Filialleitung (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
-VALUES (15, 3, '2022-06-21', '2022-12-06');
-INSERT INTO Filialleitung (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
-VALUES (9, 6, '2019-11-25', '2020-07-16');
-INSERT INTO Filialleitung (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
-VALUES (9, 5, '2020-02-06', '2021-01-15');
-INSERT INTO Filialleitung (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
-VALUES (9, 1, '2022-10-18', '2023-03-24');
-INSERT INTO Filialleitung (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
-VALUES (9, 2, '2019-09-16', '2020-06-10');
-INSERT INTO Filialleitung (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
-VALUES (9, 8, '2023-03-25', '2023-09-24');
-INSERT INTO Filialleitung (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
-VALUES (13, 8, '2022-07-04', '2023-04-19');
-INSERT INTO Filialleitung (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
-VALUES (13, 1, '2018-01-17', '2018-08-15');
-INSERT INTO Filialleitung (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
-VALUES (13, 4, '2021-07-15', '2022-01-15');
-INSERT INTO Filialleitung (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
-VALUES (13, 5, '2023-07-11', '2024-03-15');
-INSERT INTO Filialleitung (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
-VALUES (13, 8, '2023-03-18', '2024-02-12');
-INSERT INTO Filialleitung (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
-VALUES (6, 6, '2021-10-09', '2022-09-15');
-INSERT INTO Filialleitung (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
-VALUES (6, 6, '2020-12-12', '2021-09-30');
-INSERT INTO Filialleitung (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
-VALUES (6, 5, '2020-06-09', '2020-12-14');
-INSERT INTO Filialleitung (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
-VALUES (6, 4, '2018-05-10', '2018-10-15');
-INSERT INTO Filialleitung (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
-VALUES (6, 6, '2018-05-05', '2019-04-04');
-INSERT INTO Filialleitung (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
-VALUES (3, 3, '2019-02-24', '2019-08-13');
-INSERT INTO Filialleitung (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
-VALUES (3, 8, '2020-02-07', '2020-12-31');
-INSERT INTO Filialleitung (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
-VALUES (3, 10, '2020-03-05', '2020-06-24');
-INSERT INTO Filialleitung (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
-VALUES (3, 4, '2020-04-28', '2020-10-21');
-INSERT INTO Filialleitung (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von, bis)
-VALUES (3, 6, '2019-01-05', '2019-08-07');
+INSERT INTO Angestellte_Filiale (PK_FK_Angestellte_ID, PK_FK_Filiale_ID, PK_von)
+VALUES (20, 3, '2022-04-16');
 -- Reise (10);
 INSERT INTO Reise (PK_Reise_ID, Bezeichnung, Beschreibung)
-VALUES (1, 'Alpenzauber Tirol', 'Geführte Rundreise: Alpenzauber Tirol.');
+VALUES (1, 'Oesterreich', 'Geführte Rundreise: Alpenzauber Tirol.');
 INSERT INTO Reise (PK_Reise_ID, Bezeichnung, Beschreibung)
-VALUES (2, 'Donau-Metropolen', 'Geführte Rundreise: Donau-Metropolen.');
+VALUES (2, 'Oesterreich', 'Geführte Rundreise: Donau-Metropolen.');
 INSERT INTO Reise (PK_Reise_ID, Bezeichnung, Beschreibung)
-VALUES (3, 'Italienische Riviera', 'Geführte Rundreise: Italienische Riviera.');
+VALUES (3, 'Italien', 'Geführte Rundreise: Italienische Riviera.');
 INSERT INTO Reise (PK_Reise_ID, Bezeichnung, Beschreibung)
-VALUES (4, 'Andalusische Sonne', 'Geführte Rundreise: Andalusische Sonne.');
+VALUES (4, 'Italien', 'Geführte Rundreise: Andalusische Sonne.');
 INSERT INTO Reise (PK_Reise_ID, Bezeichnung, Beschreibung)
-VALUES (5, 'Skandinavische Fjorde', 'Geführte Rundreise: Skandinavische Fjorde.');
+VALUES (5, ' Skandinavien', 'Geführte Rundreise: Skandinavische Fjorde.');
 INSERT INTO Reise (PK_Reise_ID, Bezeichnung, Beschreibung)
-VALUES (6, 'Paris & Loire', 'Geführte Rundreise: Paris & Loire.');
+VALUES (6, 'Frankreich', 'Geführte Rundreise: Paris & Loire.');
 INSERT INTO Reise (PK_Reise_ID, Bezeichnung, Beschreibung)
-VALUES (7, 'Irland Rundreise', 'Geführte Rundreise: Irland Rundreise.');
+VALUES (7, 'Irland', 'Geführte Rundreise: Irland Rundreise.');
 INSERT INTO Reise (PK_Reise_ID, Bezeichnung, Beschreibung)
-VALUES (8, 'Japan Highlights', 'Geführte Rundreise: Japan Highlights.');
+VALUES (8, 'Japan', 'Geführte Rundreise: Japan Highlights.');
 INSERT INTO Reise (PK_Reise_ID, Bezeichnung, Beschreibung)
-VALUES (9, 'USA Westküste', 'Geführte Rundreise: USA Westküste.');
+VALUES (9, 'USA', 'Geführte Rundreise: USA Westküste.');
 INSERT INTO Reise (PK_Reise_ID, Bezeichnung, Beschreibung)
-VALUES (10, 'Peru & Machu Picchu', 'Geführte Rundreise: Peru & Machu Picchu.');
+VALUES (10, 'Peru', 'Geführte Rundreise: Peru & Machu Picchu.');
 -- Reiseabschnitt (3-7 je Reise);
 INSERT INTO Reiseabschnitt (FK_Reise_ID, VonTagNr, BisTagNr, Beschreibung)
 VALUES (1, 1, 3, 'Programm Tag 1-3 für Reise 1');
