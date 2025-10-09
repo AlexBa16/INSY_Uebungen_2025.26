@@ -1,4 +1,4 @@
--- Alexander Bachinger --
+# ---- Alexander Bachinger ----
 
 -- DML for Reisebuero demo dataset;
 USE Reisebuero;

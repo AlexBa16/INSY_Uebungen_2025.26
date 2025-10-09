@@ -1,5 +1,4 @@
--- Alexander Bachinger --
-
+# ---- Alexander Bachinger ----
 DROP DATABASE IF EXISTS Reisebuero;
 CREATE DATABASE Reisebuero CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE Reisebuero;
