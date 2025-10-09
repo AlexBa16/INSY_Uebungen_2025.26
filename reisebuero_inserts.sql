@@ -1,3 +1,5 @@
+-- Alexander Bachinger --
+
 -- DML for Reisebuero demo dataset;
 USE Reisebuero;
 -- Ensure AUTO_INCREMENT on PKs that must be generated automatically (per task);
