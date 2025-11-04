@@ -441,3 +441,5 @@ FROM Reisebuchung
          LEFT JOIN Zahlung ON Reisebuchung.PK_Reisebuchung_ID = Zahlung.FK_Reisebuchung_ID
 GROUP BY Reisebuchung.PK_Reisebuchung_ID;
 
+
+
