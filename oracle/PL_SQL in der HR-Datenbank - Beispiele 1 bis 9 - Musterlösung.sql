@@ -1,191 +1,284 @@
 -- 1) Lies die Daten eines selects in eine Variable und gib diese dann aus.
+-- Deklarationsbereich
 declare
-    v_first_name hr.employees.first_name%type; -- var
-    v_last_name  hr.employees.last_name%type; -- var
+    -- Variable für den Vornamen, Datentyp wie in hr.employees.first_name
+    v_first_name hr.employees.first_name%type;
+    -- Variable für den Nachnamen, Datentyp wie in hr.employees.last_name
+    v_last_name  hr.employees.last_name%type;
 begin
+    -- Liest Vor- und Nachnamen des Mitarbeiters mit ID 100
+    -- und speichert sie in die Variablen
     select first_name, last_name
-    into v_first_name, v_last_name -- save select output into var
+    into v_first_name, v_last_name
     from hr.employees
     where employee_id = 100;
 
+    -- Gibt Vor- und Nachnamen in der Konsole aus
     dbms_output.put_line(v_first_name || ' ' || v_last_name);
 end;
 
 -- 2) Erzeuge einen Cursor der die Mitarbeiter (Vorname, Nachname) ausliest (mit zwei Variablen deren Datentyp mit %TYPE angegeben wird).
 declare
+    -- Variable für Vorname
     v_first_name hr.employees.first_name%type;
+    -- Variable für Nachname
     v_last_name  hr.employees.last_name%type;
-    cursor c is select first_name, last_name
-                from hr.employees;
+
+    -- Cursor definiert eine Abfrage für alle Mitarbeiter
+    cursor c is
+        select first_name, last_name
+        from hr.employees;
 begin
+    -- Öffnet den Cursor (führt die Abfrage aus)
     open c;
 
+    -- Schleife zum zeilenweisen Lesen des Cursors
     loop
+        -- Holt die nächste Zeile aus dem Cursor
         fetch c into v_first_name, v_last_name;
+
+        -- Beendet die Schleife, wenn keine Zeile mehr vorhanden ist
         exit when c%notfound;
 
+        -- Gibt Vor- und Nachnamen aus
         dbms_output.put_line(v_first_name || ' ' || v_last_name);
     end loop;
 
+    -- Schließt den Cursor
     close c;
 end;
 
 -- 3) Erzeuge einen Cursor wie in 2) für alle Spalten des mit %rowtype.
 declare
-    cursor c_emp is select first_name, last_name
-                    from hr.employees;
+    -- Cursor mit Abfrage
+    cursor c_emp is
+        select first_name, last_name
+        from hr.employees;
+
+    -- Variable enthält eine komplette Zeile des Cursors
     v_emp c_emp%rowtype;
 begin
+    -- Cursor öffnen
     open c_emp;
 
     loop
+        -- Ganze Zeile in v_emp lesen
         fetch c_emp into v_emp;
+
+        -- Abbruch wenn keine Daten mehr vorhanden
         exit when c_emp%notfound;
+
+        -- Zugriff auf einzelne Spalten der Zeile
         dbms_output.put_line(v_emp.first_name || ' ' || v_emp.last_name);
     end loop;
 
+    -- Cursor schließen
     close c_emp;
 end;
 
 -- 4) Erzeuge einen Cursor und gib die Mitarbeiter aus, die mehr als der Durchschnitt in der Firma verdienen.
 declare
-    cursor c_emp is select first_name, last_name, salary
-                    from hr.employees
-                    where salary > (select avg(salary)
-                                    from hr.employees);
+    -- Cursor mit Subselect für Durchschnittsgehalt
+    cursor c_emp is
+        select first_name, last_name, salary
+        from hr.employees
+        where salary > (select avg(salary) from hr.employees);
+
+    -- Variable für eine komplette Cursor-Zeile
     v_emp c_emp%rowtype;
 begin
+    -- Cursor öffnen
     open c_emp;
 
     loop
+        -- Datensatz lesen
         fetch c_emp into v_emp;
+
+        -- Schleife beenden, wenn keine Daten mehr da sind
         exit when c_emp%notfound;
+
+        -- Ausgabe von Name und Gehalt
         dbms_output.put_line(v_emp.first_name || ' ' || v_emp.last_name || ' ' || v_emp.salary);
     end loop;
 
+    -- Cursor schließen
     close c_emp;
 end;
 
 -- 5) Erzeuge einen Cursor mit Parameter für die MA mit Übergabe des Durchschnittgehalts.
 declare
-    cursor c_emp (v_avg_salary in number) is select first_name, last_name, salary
-                                             from hr.employees
-                                             where salary > v_avg_salary;
+    -- Cursor mit Parameter für das Durchschnittsgehalt
+    cursor c_emp (v_avg_salary in number) is
+        select first_name, last_name, salary
+        from hr.employees
+        where salary > v_avg_salary;
+
+    -- Variable für Cursor-Zeile
     v_emp        c_emp%rowtype;
+
+    -- Variable für Durchschnittsgehalt
     v_avg_salary hr.employees.salary%type;
 begin
-    select avg(salary) into v_avg_salary from hr.employees;
+    -- Durchschnittsgehalt berechnen
+    select avg(salary)
+    into v_avg_salary
+    from hr.employees;
 
+    -- Cursor mit Parameter öffnen
     open c_emp(v_avg_salary);
 
     loop
         fetch c_emp into v_emp;
         exit when c_emp%notfound;
+
+        -- Ausgabe
         dbms_output.put_line(v_emp.first_name || ' ' || v_emp.last_name || ' ' || v_emp.salary);
     end loop;
 
+    -- Cursor schließen
     close c_emp;
 end;
 
 -- 6) Behandle die INVALID_CURSOR-Exception bei Beispiel 4. Du kannst diese Testen, in dem du den Cursor nicht öffnest.
 declare
-    cursor c_emp is select first_name, last_name, salary
-                    from hr.employees
-                    where salary > (select avg(salary)
-                                    from hr.employees);
+    cursor c_emp is
+        select first_name, last_name, salary
+        from hr.employees
+        where salary > (select avg(salary) from hr.employees);
     v_emp c_emp%rowtype;
 begin
+    -- Cursor öffnen (zum Testen kann man diese Zeile entfernen)
     open c_emp;
 
     loop
         fetch c_emp into v_emp;
         exit when c_emp%notfound;
+
         dbms_output.put_line(v_emp.first_name || ' ' || v_emp.last_name || ' ' || v_emp.salary);
     end loop;
 
+    -- Cursor schließen
     close c_emp;
+
+-- Exception-Bereich
 exception
+    -- Fängt alle Fehler ab (inkl. INVALID_CURSOR)
     when others then
         dbms_output.put_line('Fehler: ' || sqlerrm);
 end;
 
 -- 7) Erzeuge das Ergebnis der Abfrage ohne Verwendung eines subselects, also mit 2 Cursor: Welche Mitarbeiter verdienen mehr als der Durchschnitt ihrer Abteilung?
 declare
-    cursor c_emp is select avg(salary), department_id
-                    from hr.employees
-                    group by department_id;
-    cursor c_emp2 (p_avg_sal number, p_dept_id number) is select first_name,
-                                                                 last_name,
-                                                                 department_id,
-                                                                 salary
-                                                          from hr.employees
-                                                          where salary > p_avg_sal
-                                                            and department_id = p_dept_id;
+    -- Cursor 1: Durchschnittsgehalt pro Abteilung
+    cursor c_emp is
+        select avg(salary), department_id
+        from hr.employees
+        group by department_id;
+
+    -- Cursor 2: Mitarbeiter mit Gehalt über Abteilungsdurchschnitt
+    cursor c_emp2 (p_avg_sal number, p_dept_id number) is
+        select first_name, last_name, department_id, salary
+        from hr.employees
+        where salary > p_avg_sal
+          and department_id = p_dept_id;
+
+    -- Variablen für Durchschnittsgehalt und Abteilung
     v_avg_sal hr.employees.salary%type;
     v_dept_id hr.employees.department_id%type;
+
+    -- Variable für Mitarbeiterdaten
     v_emp     c_emp2%rowtype;
 begin
+    -- Cursor 1 öffnen
     open c_emp;
 
     loop
+        -- Durchschnittsgehalt und Abteilung lesen
         fetch c_emp into v_avg_sal, v_dept_id;
         exit when c_emp%notfound;
 
+        -- Cursor 2 mit Parametern öffnen
         open c_emp2(v_avg_sal, v_dept_id);
 
         loop
             fetch c_emp2 into v_emp;
             exit when c_emp2%notfound;
 
+            -- Ausgabe der Mitarbeiter
             dbms_output.put_line(v_emp.first_name || ' ' || v_emp.last_name || ' ' || v_emp.salary);
         end loop;
 
+        -- Cursor 2 schließen
         close c_emp2;
     end loop;
 
+    -- Cursor 1 schließen
     close c_emp;
 end;
 
 -- 8) Erzeuge eine Procedure für das Lesen der Mitarbeiter nach Übergabe des Durchschnittsgehalts und der Abteilung verwende diese wie in Aufgabe 7
+-- Procedure erzeugen
 create or replace procedure proc_aufgabe8(p_avg_sal in number) as
-    cursor c_emp (p_avg_sal number) is select first_name, last_name, department_id, salary
-                                       from hr.employees
-                                       where salary > p_avg_sal;
+    -- Cursor mit Parameter
+    cursor c_emp (p_avg_sal number) is
+        select first_name, last_name, department_id, salary
+        from hr.employees
+        where salary > p_avg_sal;
+
+    -- Variable für Mitarbeiterdatensatz
     v_emp c_emp%rowtype;
 begin
+    -- Cursor öffnen
     open c_emp(p_avg_sal);
 
     loop
         fetch c_emp into v_emp;
         exit when c_emp%notfound;
 
+        -- Ausgabe
         dbms_output.put_line(v_emp.first_name || ' ' || v_emp.last_name || ' ' || v_emp.salary);
     end loop;
 
+    -- Cursor schließen
     close c_emp;
 end;
 
 declare
+    -- Variable für Durchschnittsgehalt
     v_avg_sal number;
 begin
+    -- Durchschnittsgehalt berechnen
     select avg(salary) into v_avg_sal from hr.employees;
+
+    -- Procedure aufrufen
     proc_aufgabe8(v_avg_sal);
 end;
 
 -- 9) Erstelle Aufgabe 7 mit 2 Procedures, wobei die 2. Procedure den Durchschnittsgehalt und die Abteilung von allen Mitarbeitern zurückgibt. Dieser soll dann als Übergabe für die Procedure in Aufgabe 8 verwendet werden.
+-- Procedure 1: steuert den Ablauf
 create or replace procedure proc_aufgabe9_1 as
+    -- Variable für Durchschnittsgehalt
     v_avg_sal number;
 begin
+    -- Durchschnittsgehalt ermitteln
     proc_aufgabe9_2(v_avg_sal);
+
+    -- Mitarbeiter ausgeben
     proc_aufgabe8(v_avg_sal);
 end;
 
+-- Procedure 2: berechnet das Durchschnittsgehalt
 create or replace procedure proc_aufgabe9_2(p_avg_sal out number) as
 begin
-    select avg(salary) into p_avg_sal from hr.employees;
+    -- Durchschnittsgehalt in OUT-Parameter schreiben
+    select avg(salary)
+    into p_avg_sal
+    from hr.employees;
 end;
 
+-- Startblock
 declare
 begin
+    -- Startet die gesamte Logik
     proc_aufgabe9_1();
 end;
