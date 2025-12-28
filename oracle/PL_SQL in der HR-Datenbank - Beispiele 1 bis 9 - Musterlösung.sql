@@ -1,37 +1,40 @@
 -- 1) Lies die Daten eines selects in eine Variable und gib diese dann aus.
--- Deklarationsbereich
+-- DECLARE = Variablenbereich (wie ganz oben in einem Programm)
 declare
     -- Variable für den Vornamen, Datentyp wie in hr.employees.first_name
     v_first_name hr.employees.first_name%type;
     -- Variable für den Nachnamen, Datentyp wie in hr.employees.last_name
     v_last_name  hr.employees.last_name%type;
+
 begin
-    -- Liest Vor- und Nachnamen des Mitarbeiters mit ID 100
-    -- und speichert sie in die Variablen
+    -- SELECT ... INTO ist wie:
+    -- v_first_name = ...
+    -- v_last_name  = ...
     select first_name, last_name
     into v_first_name, v_last_name
     from hr.employees
     where employee_id = 100;
 
-    -- Gibt Vor- und Nachnamen in der Konsole aus
+    -- Ausgabe auf der Konsole (wie print())
     dbms_output.put_line(v_first_name || ' ' || v_last_name);
 end;
 
 -- 2) Erzeuge einen Cursor der die Mitarbeiter (Vorname, Nachname) ausliest (mit zwei Variablen deren Datentyp mit %TYPE angegeben wird).
 declare
-    -- Variable für Vorname
+    -- Variablen für eine Zeile aus der Tabelle
     v_first_name hr.employees.first_name%type;
-    -- Variable für Nachname
     v_last_name  hr.employees.last_name%type;
 
-    -- Cursor definiert eine Abfrage für alle Mitarbeiter
+    -- Cursor = gespeicherte Datenbankabfrage
+    -- Vergleich: ResultSet oder Iterator
     cursor c is
         select first_name, last_name
         from hr.employees;
 begin
-    -- Öffnet den Cursor (führt die Abfrage aus)
+    -- Cursor öffnen = Abfrage starten
     open c;
 
+    -- Endlosschleife (wird mit EXIT beendet)
     -- Schleife zum zeilenweisen Lesen des Cursors
     loop
         -- Holt die nächste Zeile aus dem Cursor
@@ -40,7 +43,7 @@ begin
         -- Beendet die Schleife, wenn keine Zeile mehr vorhanden ist
         exit when c%notfound;
 
-        -- Gibt Vor- und Nachnamen aus
+        -- Ausgabe der aktuellen Zeile
         dbms_output.put_line(v_first_name || ' ' || v_last_name);
     end loop;
 
@@ -55,20 +58,23 @@ declare
         select first_name, last_name
         from hr.employees;
 
-    -- Variable enthält eine komplette Zeile des Cursors
+    -- v_emp ist wie ein Objekt:
+    -- v_emp.first_name
+    -- v_emp.last_name
     v_emp c_emp%rowtype;
+
 begin
     -- Cursor öffnen
     open c_emp;
 
     loop
-        -- Ganze Zeile in v_emp lesen
+        -- Ganze Zeile in ein Objekt laden
         fetch c_emp into v_emp;
 
         -- Abbruch wenn keine Daten mehr vorhanden
         exit when c_emp%notfound;
 
-        -- Zugriff auf einzelne Spalten der Zeile
+        -- Zugriff auf Felder des Objekts
         dbms_output.put_line(v_emp.first_name || ' ' || v_emp.last_name);
     end loop;
 
@@ -78,7 +84,7 @@ end;
 
 -- 4) Erzeuge einen Cursor und gib die Mitarbeiter aus, die mehr als der Durchschnitt in der Firma verdienen.
 declare
-    -- Cursor mit Subselect für Durchschnittsgehalt
+    -- Cursor mit Filter (subselect)
     cursor c_emp is
         select first_name, last_name, salary
         from hr.employees
@@ -101,7 +107,6 @@ begin
         dbms_output.put_line(v_emp.first_name || ' ' || v_emp.last_name || ' ' || v_emp.salary);
     end loop;
 
-    -- Cursor schließen
     close c_emp;
 end;
 
@@ -162,7 +167,7 @@ begin
 
 -- Exception-Bereich
 exception
-    -- Fängt alle Fehler ab (inkl. INVALID_CURSOR)
+    -- WHEN OTHERS = fängt ALLE Fehler ab
     when others then
         dbms_output.put_line('Fehler: ' || sqlerrm);
 end;
@@ -218,8 +223,10 @@ end;
 
 -- 8) Erzeuge eine Procedure für das Lesen der Mitarbeiter nach Übergabe des Durchschnittsgehalts und der Abteilung verwende diese wie in Aufgabe 7
 -- Procedure erzeugen
-create or replace procedure proc_aufgabe8(p_avg_sal in number) as
-    -- Cursor mit Parameter
+-- Procedure = Funktion ohne return
+create or replace procedure proc_aufgabe8(
+    p_avg_sal in number -- Übergabeparameter
+) as
     cursor c_emp (p_avg_sal number) is
         select first_name, last_name, department_id, salary
         from hr.employees
@@ -255,6 +262,15 @@ begin
 end;
 
 -- 9) Erstelle Aufgabe 7 mit 2 Procedures, wobei die 2. Procedure den Durchschnittsgehalt und die Abteilung von allen Mitarbeitern zurückgibt. Dieser soll dann als Übergabe für die Procedure in Aufgabe 8 verwendet werden.
+-- Procedure 2: berechnet das Durchschnittsgehalt
+create or replace procedure proc_aufgabe9_2(p_avg_sal out number) as
+begin
+    -- Durchschnittsgehalt in OUT-Parameter schreiben
+    select avg(salary)
+    into p_avg_sal
+    from hr.employees;
+end;
+
 -- Procedure 1: steuert den Ablauf
 create or replace procedure proc_aufgabe9_1 as
     -- Variable für Durchschnittsgehalt
@@ -265,15 +281,6 @@ begin
 
     -- Mitarbeiter ausgeben
     proc_aufgabe8(v_avg_sal);
-end;
-
--- Procedure 2: berechnet das Durchschnittsgehalt
-create or replace procedure proc_aufgabe9_2(p_avg_sal out number) as
-begin
-    -- Durchschnittsgehalt in OUT-Parameter schreiben
-    select avg(salary)
-    into p_avg_sal
-    from hr.employees;
 end;
 
 -- Startblock
