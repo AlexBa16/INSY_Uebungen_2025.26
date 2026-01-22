@@ -26,3 +26,6 @@ INSERT INTO credentials (PK_credentials_ID, username, password_hash, is_active, 
 (2, 'ghost', RAWTOHEX(STANDARD_HASH('secret', 'SHA512')), 1, TO_DATE('2022-02-22', 'yyyy-MM-dd'));
 
 COMMIT;
+
+DELETE FROM CREDENTIALS
+WHERE username = 'ghost';
