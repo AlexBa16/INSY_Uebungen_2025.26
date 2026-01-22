@@ -63,41 +63,87 @@ END;
 --         Hinweis: Das aktuelle Datum kann mit SYSDATE ermittelt werden.
 DECLARE
     CURSOR c IS
-        SELECT PK_FK_KUNDE_ID, DATUMBIS
+        SELECT DATUMBIS
         FROM KUNDE_FAHRZEUG;
-    v_pk   KUNDE_FAHRZEUG.PK_FK_KUNDE_ID%type;
     v_date KUNDE_FAHRZEUG.DATUMBIS%type;
 BEGIN
     OPEN c;
     LOOP
-        FETCH c INTO v_pk, v_date;
-        DBMS_OUTPUT.PUT_LINE(v_pk);
+        FETCH c INTO v_date;
         EXIT WHEN c%NOTFOUND;
         IF v_date IS NOT NULL AND v_date > SYSDATE THEN
             UPDATE kunde_fahrzeug
-            SET datumbis = NULL
-            WHERE PK_FK_KUNDE_ID = v_pk;
-            DBMS_OUTPUT.PUT_LINE(v_pk);
+            SET DATUMBIS = NULL
+            WHERE DATUMBIS > SYSDATE;
         END IF;
 
     END LOOP;
     CLOSE c;
 END;
 
+COMMIT;
+
 --     Erstelle einen Trigger, der nach dem UPDATE der Spalte DATUM_BIS der Tabelle KUNDE_FAHRZEUG für jeden betroffenen Datensatz ausgelöst wird!
 --         Der Trigger soll nur ausgeführt werden, wenn die Spalte DATUM_BIS auf NULL gesetzt war.
---         Im Trigger selbst soll das dazugehörige Fahrzeug geladen und die Meldung Das Fahrzeug MODELL (MARKE) wurde zurückgebracht ausgegeben werden, wobei anstelle von MODELL und MARKE die geladenen Daten anzuzeigen sind.
+--         Im Trigger selbst soll das dazugehörige Fahrzeug geladen und die Meldung "Das Fahrzeug MODELL (MARKE) wurde zurückgebracht" ausgegeben werden, wobei anstelle von MODELL und MARKE die geladenen Daten anzuzeigen sind.
+CREATE OR REPLACE TRIGGER after_update_datumbis
+    AFTER UPDATE OF DATUMBIS
+    ON KUNDE_FAHRZEUG
+    FOR EACH ROW
+    WHEN (NEW.DATUMBIS IS NOT NULL AND OLD.DATUMBIS IS NULL)
 
+DECLARE
+    CURSOR c IS
+        SELECT F.MODELL, M.BEZEICHNUNG
+        FROM FAHRZEUG F
+                 JOIN MARKE M ON M.PK_MARKE_ID = F.FK_MARKE_ID
+        WHERE F.PK_FAHRZEUG_ID = :NEW.PK_FK_FAHRZEUG_ID;
+    v_modell fahrzeug.modell%TYPE;
+    v_marke  marke.bezeichnung%TYPE;
+BEGIN
+    OPEN c;
+    LOOP
+        FETCH c INTO v_modell, v_marke;
+        EXIT WHEN c%NOTFOUND;
+
+        DBMS_OUTPUT.PUT_LINE('Das Fahrzeug ' || v_modell || ' (' || v_marke || ') wurde zurückgebracht');
+    END LOOP;
+    CLOSE c;
+END;
+
+UPDATE KUNDE_FAHRZEUG
+SET DATUMBIS = SYSDATE + 10
+WHERE PK_FK_KUNDE_ID = 6
+  AND PK_FK_FAHRZEUG_ID = 36;
+
+COMMIT;
 
 --     Erstelle einen Trigger, der vor dem INSERT eines Datensatzes in die KUNDE_FAHRZEUG aufgeführt wird!
 --         Es muss geprüft werden, ob der Kunde einen Führerschein in der für das Fahrzeug erforderlichen Klasse besitzt.
 --         Ist dies nicht der Fall, soll die Aktion mithilfe der Funktion RAISE_APPLICATION_ERROR(-20001, 'Der Kunde besitzt keine Fahrerlaubnis für das betreffende Fahrzeug.'); abgebrochen werden.
+CREATE OR REPLACE TRIGGER fuehrerschein_ueberpruefung
+    BEFORE INSERT
+    ON KUNDE_FAHRZEUG
+    FOR EACH ROW
+DECLARE
+    CURSOR c IS
+        SELECT KFS.PK_FK_KUNDE_ID
+        FROM KUNDE_FUEHRERSCHEIN KFS
+                 JOIN FAHRZEUG F ON F.PK_FAHRZEUG_ID = :NEW.PK_FK_FAHRZEUG_ID
+        WHERE KFS.PK_FK_KUNDE_ID = :NEW.PK_FK_KUNDE_ID
+          AND KFS.PK_FK_KLASSE = F.FK_KLASSE;
+    v_found KUNDE_FUEHRERSCHEIN.PK_FK_KUNDE_ID%type;
 
+BEGIN
+    OPEN c;
+    LOOP
+        FETCH c INTO v_found;
+        EXIT WHEN c%FOUND OR c%NOTFOUND;
+    END LOOP;
+    CLOSE c;
 
-SELECT trigger_name,
-       table_name,
-       trigger_type,
-       triggering_event,
-       status
-FROM user_triggers
-ORDER BY trigger_name;
+    IF v_found IS NULL THEN
+        RAISE_APPLICATION_ERROR(-20001, 'Der Kunde besitzt keine Fahrerlaubnis für das betreffende Fahrzeug.');
+    END IF;
+END;
+
